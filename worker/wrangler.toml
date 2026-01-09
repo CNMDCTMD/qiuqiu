@@ -1,1 +1,27 @@
 
+name = "vod-api-worker"
+main = "src/index.js"
+compatibility_date = "2024-01-01"
+
+# D1数据库配置
+[[d1_databases]]
+binding = "DB"
+database_name = "vod-database"
+database_id = "你的D1数据库ID"  # 替换为实际ID
+
+# KV命名空间配置（用于存储采集状态）
+kv_namespaces = [
+  { binding = "VOD_CACHE", id = "你的KV命名空间ID" }
+]
+
+# 环境变量
+[vars]
+SOURCE_API_URL = "https://cj.rycjapi.com/api.php/provide/vod/"
+ADMIN_API_KEY = "my-admin-key-123"
+CACHE_TTL = "3600"
+
+# 定时任务（每天UTC 2点运行，可调整）
+triggers = [{ cron = "0 2 * * *" }]
+
+[dev]
+port = 8787
